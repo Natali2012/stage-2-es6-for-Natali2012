@@ -5,6 +5,7 @@ new App();
 const API_URL = 'https://api.github.com/';
 const rootElement = document.getElementById('root');
 const loadingElement = document.getElementById('loading-overlay');
+const fightersDetailsMap = new Map();
 
 async function startApp() {
     try {
@@ -74,8 +75,7 @@ function createFighter(fighter) {
     const imageElement = createImage(source);
     const element = createElement({ tagName: 'div', className: 'fighter' });
   
-    element.addEventListener('click', (event) => handleFighterClick(event, 'wrapper'), true)
-    imageElement.addEventListener('click', (event) => handleFighterClick(event, 'image'), false)
+    element.addEventListener('click', (event) => handleFighterClick(event, fighter), true)
     element.append(imageElement, nameElement);
   
     return element;
@@ -90,8 +90,15 @@ function createFighters(fighters) {
     return element;
   }
 
-function handleFighterClick(event, el) {
-    console.log(el);
+function handleFighterClick(event, fighter) {
+    const { _id } = fighter;
+  
+    if(!fightersDetailsMap.has(_id)) {
+      // send request here
+      fightersDetailsMap.set(_id, fighter);
+    }
+  
+    console.log(fightersDetailsMap.get(_id));
   }
 
 function getFightersNames(fighters) {
