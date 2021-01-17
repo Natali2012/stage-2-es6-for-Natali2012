@@ -9,6 +9,8 @@ const fightersDetailsMap = new Map();
       method
     };
   
+    const name = ''
+
     return fetch(url, options)
       .then(response => 
         response.ok 
